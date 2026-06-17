@@ -4,7 +4,7 @@
  \ V  V / |  _|| |_/ _` / -_)
   \_/\_/|_|_|(_)_(_)__,_\___|
 ==============================
-[ pyWifide ] IDE @ Wi-Fi for Python
+[ pyWifide ] IDE @ Wi-Fi Network for Python
 ==============================
 
 
