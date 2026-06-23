@@ -4,12 +4,12 @@ namespace PhpParser\Node\Expr\BinaryOp;
 
 use PhpParser\Node\Expr\BinaryOp;
 
-class Pow extends BinaryOp {
+class LogicalOr extends BinaryOp {
     public function getOperatorSigil(): string {
-        return '**';
+        return 'or';
     }
 
     public function getType(): string {
-        return 'Expr_BinaryOp_Pow';
+        return 'Expr_BinaryOp_LogicalOr';
     }
 }
