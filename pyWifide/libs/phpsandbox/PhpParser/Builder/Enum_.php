@@ -4,46 +4,45 @@ namespace PhpParser\Builder;
 
 use PhpParser;
 use PhpParser\BuilderHelpers;
-use PhpParser\Modifiers;
 use PhpParser\Node;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt;
 
-class Class_ extends Declaration {
+class Enum_ extends Declaration {
     protected string $name;
-    protected ?Name $extends = null;
+    protected ?Identifier $scalarType = null;
     /** @var list<Name> */
     protected array $implements = [];
-    protected int $flags = 0;
     /** @var list<Stmt\TraitUse> */
     protected array $uses = [];
+    /** @var list<Stmt\EnumCase> */
+    protected array $enumCases = [];
     /** @var list<Stmt\ClassConst> */
     protected array $constants = [];
-    /** @var list<Stmt\Property> */
-    protected array $properties = [];
     /** @var list<Stmt\ClassMethod> */
     protected array $methods = [];
     /** @var list<Node\AttributeGroup> */
     protected array $attributeGroups = [];
 
     /**
-     * Creates a class builder.
+     * Creates an enum builder.
      *
-     * @param string $name Name of the class
+     * @param string $name Name of the enum
      */
     public function __construct(string $name) {
         $this->name = $name;
     }
 
     /**
-     * Extends a class.
+     * Sets the scalar type.
      *
-     * @param Name|string $class Name of class to extend
+     * @param string|Identifier $scalarType
      *
-     * @return $this The builder instance (for fluid interface)
+     * @return $this
      */
-    public function extend($class) {
-        $this->extends = BuilderHelpers::normalizeName($class);
+    public function setScalarType($scalarType) {
+        $this->scalarType = BuilderHelpers::normalizeType($scalarType);
 
         return $this;
     }
@@ -64,39 +63,6 @@ class Class_ extends Declaration {
     }
 
     /**
-     * Makes the class abstract.
-     *
-     * @return $this The builder instance (for fluid interface)
-     */
-    public function makeAbstract() {
-        $this->flags = BuilderHelpers::addClassModifier($this->flags, Modifiers::ABSTRACT);
-
-        return $this;
-    }
-
-    /**
-     * Makes the class final.
-     *
-     * @return $this The builder instance (for fluid interface)
-     */
-    public function makeFinal() {
-        $this->flags = BuilderHelpers::addClassModifier($this->flags, Modifiers::FINAL);
-
-        return $this;
-    }
-
-    /**
-     * Makes the class readonly.
-     *
-     * @return $this The builder instance (for fluid interface)
-     */
-    public function makeReadonly() {
-        $this->flags = BuilderHelpers::addClassModifier($this->flags, Modifiers::READONLY);
-
-        return $this;
-    }
-
-    /**
      * Adds a statement.
      *
      * @param Stmt|PhpParser\Builder $stmt The statement to add
@@ -106,8 +72,8 @@ class Class_ extends Declaration {
     public function addStmt($stmt) {
         $stmt = BuilderHelpers::normalizeNode($stmt);
 
-        if ($stmt instanceof Stmt\Property) {
-            $this->properties[] = $stmt;
+        if ($stmt instanceof Stmt\EnumCase) {
+            $this->enumCases[] = $stmt;
         } elseif ($stmt instanceof Stmt\ClassMethod) {
             $this->methods[] = $stmt;
         } elseif ($stmt instanceof Stmt\TraitUse) {
@@ -137,14 +103,13 @@ class Class_ extends Declaration {
     /**
      * Returns the built class node.
      *
-     * @return Stmt\Class_ The built class node
+     * @return Stmt\Enum_ The built enum node
      */
     public function getNode(): PhpParser\Node {
-        return new Stmt\Class_($this->name, [
-            'flags' => $this->flags,
-            'extends' => $this->extends,
+        return new Stmt\Enum_($this->name, [
+            'scalarType' => $this->scalarType,
             'implements' => $this->implements,
-            'stmts' => array_merge($this->uses, $this->constants, $this->properties, $this->methods),
+            'stmts' => array_merge($this->uses, $this->enumCases, $this->constants, $this->methods),
             'attrGroups' => $this->attributeGroups,
         ], $this->attributes);
     }
