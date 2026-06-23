@@ -67,31 +67,70 @@
  * ========================================================
  */
 
-global $g_config;
+set_time_limit(0);
 
-$g_config = array(
- 'mytestor.host' => 'localhost',
- 'mytestor.port' => '3306',
- 'mytestor.username' => 'mytestor',
- 'mytestor.password' => 'kunqhtsadzmopeh',
- 'mytestor.database' => 'mytestor',
- 'mytestor.command' => '/data/data/com.termux/files/usr/bin/mariadb',
- 'mytestor.zip_cmd' => '/data/data/com.termux/files/usr/bin/zip',
- 'mytestor.php_cmd' => '/data/data/com.termux/files/usr/bin/php',
- 'mytestor.python_cmd' => '/data/data/com.termux/files/usr/bin/python3.13',
- 'mytestor.unlock_password' => 'homosapien',
- 'mytestor.locking' => true,
- 'mytestor.buffers_dir' => '/data/data/com.termux/files/home/progorker/pyWifideProxy',
- 'mytestor.proxy_token' => 'homosapien',
- 'pytestor.dir' => '/pyTestor',
+global $g_config, $g_buffers_dir;
 
- 'svc.username' => 'mytestor',
- 'svc.password' => 'rzutomqahegpnyx',
- 
- 'testor.username' => 'mytestor',
- 'testor.password' => 'rzutomqahegpnyx'
- 
-);
+require_once __DIR__ . '/config.php';
 
-$g_config['pytestor.dir'] = __DIR__ . $g_config['pytestor.dir'];
+$g_buffers_dir = $g_config['mytestor.buffers_dir'];
+
+header( 'Content-Type: text/plain' );
+
+function g_param( $key ) {
+  if ( isset( $_POST[ $key ] ) ) return $_POST[ $key ];
+  if ( isset( $_GET[ $key ] ) ) return $_GET[ $key ];
+  return '';
+}
+
+if ( trim( g_param('token') ) !== $g_config['mytestor.proxy_token'] ) {
+  exit;
+}
+
+$filename = g_param('s');
+$filename = trim( $filename );
+$filename = str_replace( '..', '', $filename );
+$filename = str_replace( '..', '', $filename );
+$filename = trim( $filename );
+$pytestor_dir = $g_config['pytestor.dir'];
+$scrp_file = $g_buffers_dir . '/' . $filename;
+if ( is_file( $scrp_file ) ) {
+  $scrp_dir = dirname( $scrp_file );
+  $func = g_param('f');
+  $token = g_param('t');
+  $suite_id = g_param('i');
+  $scrp_name = str_replace( '.py', '', $filename );
+  $idx = strrpos( $scrp_name, '/' );
+  if ( $idx !== false ) {
+    $scrp_name = substr( $scrp_name, $idx + 1 );
+  }
+  $prefix = <<<EOF
+import sys
+import os
+
+t_testor_dir = '$pytestor_dir'
+
+sys.path.append( os.path.abspath( t_testor_dir ) )
+
+import pytestor
+
+t_testor_dir = '$scrp_dir'
+
+sys.path.append( os.path.abspath( t_testor_dir ) )
+
+import $scrp_name
+
+$scrp_name.$func( '$token', $suite_id )
+EOF;
+  $tmp_dir = $g_buffers_dir . '/' . uniqid();
+  @mkdir( $tmp_dir, 0777, true );
+  $exec_file = $tmp_dir . '/' . uniqid() . '.py';
+  @file_put_contents( $exec_file, $prefix );
+  $py_cmd = $g_config['mytestor.python_cmd'];
+  $cmd = "$py_cmd $exec_file";
+  $rs = @shell_exec( $cmd );
+  echo $rs;
+  $cmd = "rm -rf $tmp_dir";
+  @shell_exec( $cmd );
+}
 ?>

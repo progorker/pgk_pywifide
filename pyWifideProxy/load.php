@@ -67,31 +67,31 @@
  * ========================================================
  */
 
-global $g_config;
+set_time_limit(0);
 
-$g_config = array(
- 'mytestor.host' => 'localhost',
- 'mytestor.port' => '3306',
- 'mytestor.username' => 'mytestor',
- 'mytestor.password' => 'kunqhtsadzmopeh',
- 'mytestor.database' => 'mytestor',
- 'mytestor.command' => '/data/data/com.termux/files/usr/bin/mariadb',
- 'mytestor.zip_cmd' => '/data/data/com.termux/files/usr/bin/zip',
- 'mytestor.php_cmd' => '/data/data/com.termux/files/usr/bin/php',
- 'mytestor.python_cmd' => '/data/data/com.termux/files/usr/bin/python3.13',
- 'mytestor.unlock_password' => 'homosapien',
- 'mytestor.locking' => true,
- 'mytestor.buffers_dir' => '/data/data/com.termux/files/home/progorker/pyWifideProxy',
- 'mytestor.proxy_token' => 'homosapien',
- 'pytestor.dir' => '/pyTestor',
+global $g_config, $g_buffers_dir;
 
- 'svc.username' => 'mytestor',
- 'svc.password' => 'rzutomqahegpnyx',
- 
- 'testor.username' => 'mytestor',
- 'testor.password' => 'rzutomqahegpnyx'
- 
-);
+require_once __DIR__ . '/config.php';
 
-$g_config['pytestor.dir'] = __DIR__ . $g_config['pytestor.dir'];
+$g_buffers_dir = $g_config['mytestor.buffers_dir'];
+
+header( 'Content-Type: text/plain' );
+
+function g_param( $key ) {
+  if ( isset( $_POST[ $key ] ) ) return $_POST[ $key ];
+  if ( isset( $_GET[ $key ] ) ) return $_GET[ $key ];
+  return '';
+}
+
+if ( trim( g_param('token') ) !== $g_config['mytestor.proxy_token'] ) {
+  exit;
+}
+
+$filename = g_param('f');
+$filename = trim( $filename );
+$filename = str_replace( '..', '', $filename );
+$filename = str_replace( '..', '', $filename );
+$filename = trim( $filename );
+$cat = trim( @file_get_contents( $g_buffers_dir . '/' . $filename ) );
+echo $cat;
 ?>
