@@ -4,8 +4,8 @@ namespace PhpParser\Node\Expr\AssignOp;
 
 use PhpParser\Node\Expr\AssignOp;
 
-class Pow extends AssignOp {
+class Mul extends AssignOp {
     public function getType(): string {
-        return 'Expr_AssignOp_Pow';
+        return 'Expr_AssignOp_Mul';
     }
 }
