@@ -80,5 +80,3 @@ pyWifide is ready to use on Testor Gifts such as:
 ![](https://github.com/progorker/pgk_pywifide/blob/main/pyWifide/shots/shot_001.png?raw=true)
 
 ![](https://github.com/progorker/pgk_pywifide/blob/main/pyWifide/shots/shot_002.png?raw=true)
-
-![](https://github.com/progorker/pgk_phpwifide/blob/main/phpWifide/shots/shot_003.png?raw=true)
