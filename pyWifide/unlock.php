@@ -67,30 +67,23 @@
  * ========================================================
  */
 
+session_start();
 global $g_config;
+require_once __DIR__ . '/config.php';
 
-$g_config = array(
- 'mytestor.host' => 'localhost',
- 'mytestor.port' => '3306',
- 'mytestor.username' => 'mytestor',
- 'mytestor.password' => 'kunqhtsadzmopeh',
- 'mytestor.database' => 'mytestor',
- 'mytestor.command' => '/data/data/com.termux/files/usr/bin/mariadb',
- 'mytestor.zip_cmd' => '/data/data/com.termux/files/usr/bin/zip',
- 'mytestor.python_cmd' => '/data/data/com.termux/files/usr/bin/python3.13',
- 'mytestor.php_cmd' => '/data/data/com.termux/files/usr/bin/php',
- 'mytestor.curl_cmd' => '/data/data/com.termux/files/usr/bin/curl',
- 'mytestor.unlock_password' => 'homosapien',
- 'mytestor.locking' => true,
+function g_param( $key ) {
+  if ( isset( $_POST[ $key ] ) ) return $_POST[ $key ];
+  if ( isset( $_GET[ $key ] ) ) return $_GET[ $key ];
+  return '';
+}
 
- 'svc.username' => 'mytestor',
- 'svc.password' => 'rzutomqahegpnyx',
- 
- 'testor.username' => 'mytestor',
- 'testor.password' => 'rzutomqahegpnyx',
-
- 'mytestor.proxy_token' => 'homosapien',
- 'mytestor.proxy_url' => 'http://localhost:8080/pyWifideProxy/'
- 
-);
+header( 'Content-Type: text/plain' );
+if ( strtolower( $_SERVER['REQUEST_METHOD'] ) === 'post' ) {
+  $pwd = $g_config['mytestor.unlock_password'];
+  if ( g_param('pwd') === $pwd ) {
+    $token = g_param('token');
+    $_SESSION['pyWifide_'.$token] = true;
+    echo 'y';
+  }
+}
 ?>
