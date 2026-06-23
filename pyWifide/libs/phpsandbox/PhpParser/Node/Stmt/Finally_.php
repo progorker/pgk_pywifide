@@ -2,28 +2,28 @@
 
 namespace PhpParser\Node\Stmt;
 
-use PhpParser\Node\Stmt;
+use PhpParser\Node;
 
-class Block extends Stmt {
-    /** @var Stmt[] Statements */
+class Finally_ extends Node\Stmt {
+    /** @var Node\Stmt[] Statements */
     public array $stmts;
 
     /**
-     * A block of statements.
+     * Constructs a finally node.
      *
-     * @param Stmt[] $stmts Statements
+     * @param Node\Stmt[] $stmts Statements
      * @param array<string, mixed> $attributes Additional attributes
      */
-    public function __construct(array $stmts, array $attributes = []) {
+    public function __construct(array $stmts = [], array $attributes = []) {
         $this->attributes = $attributes;
         $this->stmts = $stmts;
     }
 
-    public function getType(): string {
-        return 'Stmt_Block';
-    }
-
     public function getSubNodeNames(): array {
         return ['stmts'];
+    }
+
+    public function getType(): string {
+        return 'Stmt_Finally';
     }
 }
