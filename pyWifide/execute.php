@@ -1065,7 +1065,7 @@ function g_pywifide_api_testor_finish( $p_token, $p_id, $p_beauty = false ) {
 function g_pywifide_api_testor_result( $p_token, $p_id, $p_beauty = false ) {
   $p_results = '';
   \phptestor\api_testor_result( $p_token, $p_id, $p_results, $p_beauty );
-  return [ $results ];
+  return [ $p_results ];
 }
 
 function g_pywifide_api_testor_option( $p_token, $p_suite_id, $p_code, $p_remove ) {
@@ -1096,9 +1096,9 @@ function g_pywifide_api_testor_version( $p_token, $p_suite_id, $p_cur_ver ) {
 }
 
 function g_pywifide_api_testor_source( $p_token, $p_suite_id, $p_case_code, $p_beauty = false ) {
-  $results = '';
+  $p_results = '';
   \phptestor\api_testor_source( $p_token, $p_suite_id, $p_case_code, $p_results, $p_beauty );
-  return [ $results ];
+  return [ $p_results ];
 }
 
 function g_pywifide_api_testor_source_list( $p_token, $p_suite_id, $p_page_no, $p_beauty = false ) {
@@ -1120,9 +1120,9 @@ function g_pywifide_api_testor_not_true( $p_token, $p_suite_id, $p_case_id, $p_c
 }
 
 function g_pywifide_api_testor_success( $p_token, $p_suite_id, $p_page_no, $p_beauty = false ) {
-  $results = '';
+  $p_results = '';
   \phptestor\api_testor_success( $p_token, $p_suite_id, $p_page_no, $p_results, $p_beauty );
-  return [ $results ];
+  return [ $p_results ];
 }
 
 function g_pywifide_api_testor_error( $p_token, $p_suite_id, $p_case_id, $p_code, $p_message ) {
@@ -1194,7 +1194,7 @@ function g_pywifide_api_testor_not_contains( $p_token, $p_suite_id, $p_case_id, 
 function g_pywifide_api_testor_failed( $p_token, $p_suite_id, $p_page_no, $p_beauty = false ) {
   $p_results = '';
   \phptestor\api_testor_failed( $p_token, $p_suite_id, $p_page_no, $p_results, $p_beauty );
-  return [ $results ];
+  return [ $p_results ];
 }
 
 function g_pywifide_api_testor_man( $p_module, $p_kind, $p_code ) {
