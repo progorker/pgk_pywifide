@@ -87,5 +87,5 @@ pyWifide is ready to use on Testor Gifts such as:
 ------------------------------
 ```
 
-[![How to install pyWifide w/ demo account?](https://img.youtube.com/EHJc6ug-ayk/default.jpg)](https://www.youtube.com/watch?v=EHJc6ug-ayk)
+[![How to install pyWifide w/ demo account?](https://github.com/progorker/pgk_pywifide/blob/main/EHJc6ug-ayk-SD.jpg?raw=true)](https://www.youtube.com/watch?v=EHJc6ug-ayk)
 
