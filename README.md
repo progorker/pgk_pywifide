@@ -79,6 +79,7 @@ pyWifide is ready to use on Testor Gifts such as:
 
 ![](https://github.com/progorker/pgk_pywifide/blob/main/pyWifide/shots/shot_001.png?raw=true)
 
+![](https://github.com/progorker/pgk_pywifide/blob/main/pyWifide/shots/shot_002.png?raw=true)
 
 ```
 ---------_--__--_------_------
@@ -86,6 +87,5 @@ pyWifide is ready to use on Testor Gifts such as:
 ------------------------------
 ```
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EHJc6ug-ayk?si=0aHhpUu31z9bz6YL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+[![How to install pyWifide w/ demo account?](https://img.youtube.com/EHJc6ug-ayk/default.jpg)](https://www.youtube.com/watch?v=EHJc6ug-ayk)
 
-![](https://github.com/progorker/pgk_pywifide/blob/main/pyWifide/shots/shot_002.png?raw=true)
